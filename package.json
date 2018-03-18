@@ -1,0 +1,33 @@
+{
+  "name": "Electron",
+  "version": "1.0.1",
+  "description": "Electron. Tiny request-router-middleware-controller-model-view-response framework",
+  "keywords": [
+    "AWS Lambda",
+    "Local build",
+    "build"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Max Kolodezniy",
+    "email": "m.kolodezniy@gmail.com"
+  },
+  "contributors": [
+    "Max Kolodezniy <m.kolodezniy@gmail.com>"
+  ],
+  "bugs": {
+    "email": "m.kolodezniy@gmail.com"
+  },
+  "preferGlobal": true,
+  "main": "./framework.js",
+  "dependencies": {
+    "sanitizer": "^0.1.3"
+  },
+  "engines": {
+    "node": ">=6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Max-Kolodezniy/electron.git"
+  }
+}
