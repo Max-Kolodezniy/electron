@@ -1,0 +1,42 @@
+{
+    "resource": "/{proxy+}",
+    "path": "/all",
+    "httpMethod": "GET",
+    "headers": {
+        "ContentType": "application/json"
+    },
+    "queryStringParameters": {
+        "param": "1"
+    },
+    "pathParameters": {
+        "proxy": "all"
+    },
+    "stageVariables": null,
+    "requestContext": {
+        "path": "/{proxy+}",
+        "accountId": "0987654321",
+        "resourceId": "azazaz",
+        "stage": "test-invoke-stage",
+        "requestId": "test-invoke-request",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "test-invoke-api-key",
+            "cognitoAuthenticationType": null,
+            "userArn": "arn:aws:iam::0987654321:user/Invocator.User",
+            "apiKeyId": "test-invoke-api-key-id",
+            "userAgent": "aws-internal/78",
+            "accountId": "0987654321",
+            "caller": "SOME-BIG-HASH-HERE",
+            "sourceIp": "test-invoke-source-ip",
+            "accessKey": "THE-SAME-BIG-HASH-HERE",
+            "cognitoAuthenticationProvider": null,
+            "user": "ONE-MORE-TIME-THE-SAME-BIG-HASH-HERE"
+        },
+        "resourcePath": "/{proxy+}",
+        "httpMethod": "GET",
+        "apiId": "azazaz"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}

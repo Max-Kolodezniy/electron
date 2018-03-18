@@ -1,4 +1,4 @@
-# Electron Node.js MVC framework
+#Electron Node.js MVC framework
 
 This is tiniest MVC framework for Node.js AWS Lambda and APIGateway stateless applications.
 
@@ -12,7 +12,7 @@ It includes:
 7. Error handling
 8. Response is APIGateway-proxy-ready
 
-# See how simple is it
+#See how simple is it
 
 * Route accept RegExp - that gives you absolute freedom
 * Middleware methods are Promise-based
@@ -52,4 +52,59 @@ exports.handler = (event, context, callback) =>
 };
 ```
 
-Check the examples!
+Check the example app! For easy run - check out my https://www.npmjs.com/package/aws-lambda-local package. Feel free to `npm i -g aws-lambda-local`
+
+#Examples
+
+Simple integration:
+```
+➜  hello git:(master) ✗ lambda-local -f index.js -e EventSamples/TestGetItem_APIGateway_Proxy.json -t 10
+OUTPUT
+--------------------------------
+{
+    "statusCode": 200,
+    "headers": {
+        "ContentType": "application/json"
+    },
+    "body": "{\"type\":\"Item\",\"Item\":{\"key\":1,\"value\":\"2018-3-18 23:59:13\"}}"
+}
+
+```
+
+Or list output (shows controller and routing). Sometimes (if Math.random() > 0.75) one of the middleware methods will fail for demonstration.
+```
+➜  hello git:(master) ✗ lambda-local -f index.js -e EventSamples/TestGetAll_APIGateway_Proxy.json -t 10
+OUTPUT
+--------------------------------
+{
+    "statusCode": 200,
+    "headers": {
+        "ContentType": "application/json"
+    },
+    "body": "{\"type\":\"Collection\",\"Collection\":[{\"type\":\"Item\",\"Item\":{\"key\":1,\"value\":\"2018-3-19 00:00:33\"}},{\"type\":\"Item\",\"Item\":{\"key\":2,\"value\":\"2018-3-19\"}},{\"type\":\"Item\",\"Item\":{\"key\":3,\"value\":\"00:00:33\"}}]}"
+}
+```
+
+Fail one of the middleware methods:
+```
+➜  hello git:(master) ✗ lambda-local -f index.js -e EventSamples/TestNoAuth_APIGateway_Proxy.json -t 10
+Error thrown:  { Error: startSession failed
+    at Promise (/Users/max/work/home/projects/lambda-mvc/examples/hello/vendor/middlewares.js:25:20)
+    at module.exports.verifySystemConfiguration (/Users/max/work/home/projects/lambda-mvc/examples/hello/vendor/middlewares.js:22:12)
+    at prev.then (/Users/max/work/home/projects/lambda-mvc/examples/hello/node_modules/lambda-mvc/framework.js:101:28)
+    at process._tickCallback (internal/process/next_tick.js:109:7)
+    at Module.runMain (module.js:606:11)
+    at run (bootstrap_node.js:390:7)
+    at startup (bootstrap_node.js:150:9)
+    at bootstrap_node.js:505:3 code: 500 }
+OUTPUT
+--------------------------------
+{
+    "statusCode": 500,
+    "headers": {
+        "ContentType": "application/json"
+    },
+    "body": "{\"code\":500,\"type\":\"Exception\",\"message\":\"startSession failed\"}"
+}
+
+```
