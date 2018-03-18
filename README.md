@@ -1,4 +1,4 @@
-#Lambda-MVC Node.js MVC framework
+# Lambda-MVC Node.js MVC framework
 
 This is tiniest MVC framework for Node.js AWS Lambda and APIGateway stateless applications.
 
@@ -12,7 +12,7 @@ It includes:
 7. Error handling
 8. Response is APIGateway-proxy-ready
 
-#See how simple is it
+# See how simple is it
 
 * Route accept RegExp - that gives you absolute freedom
 * Middleware methods are Promise-based
@@ -54,7 +54,7 @@ exports.handler = (event, context, callback) =>
 
 Check the example app! For easy run - check out my https://www.npmjs.com/package/aws-lambda-local package. Feel free to `npm i -g aws-lambda-local`
 
-#Examples
+# Examples
 
 Simple integration:
 ```
