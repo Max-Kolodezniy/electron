@@ -7,12 +7,13 @@ module.exports.request = (event) =>
     const sanitizer = require('sanitizer');
 
     return {
-        path: sanitizer.escape(event.path),
-        method: sanitizer.escape(event.httpMethod).toUpperCase(),
-        body: event.body,
-        params: event.pathParameters || {},
-        query: event.queryStringParameters || {},
-        headers: event.headers,
+        path : sanitizer.escape(event.path),
+        method : sanitizer.escape(event.httpMethod).toUpperCase(),
+        body : event.body,
+        params : event.pathParameters || {},
+        query : event.queryStringParameters || {},
+        headers : event.headers,
+        matches : [],
         escape : sanitizer.escape
     };
 };
@@ -25,8 +26,7 @@ module.exports.response = (callback) =>
         callback(null, _buildResponse(status, headers, content));
     };
 
-    const fail = (error, status, headers) =>
-    {
+    const fail = (error, status, headers) => {
         console.log('Error thrown: ', error);
         let response;
         if (error === null) {
@@ -75,20 +75,28 @@ module.exports.router = (request, response, routes) =>
     const route = routes.find((item) => {
         if (item.path instanceof RegExp) {
             const matches = request.path.match(item.path);
-            return matches && matches.length && item.method === request.method
+            if (matches && matches.length && item.method === request.method) {
+                request.matches = matches;
+                return true;
+            }
+            return false;
         } else {
-            return item.path === request.path && item.method === request.method
+            if (item.path === request.path && item.method === request.method) {
+                request.matches = [ request.path ];
+                return true;
+            }
+            return false;
         }
     });
-
-    if (!route.middleware) {
-        route.middleware = [];
-    }
 
     const handle = () => {
         if (!route) {
             const message = 'No route matches for ' + request.method + ' ' + request.path;
             return response.fail(message, 404);
+        }
+
+        if (!route.middleware) {
+            route.middleware = [];
         }
 
         if (!middleware.length && !route.middleware.length) {
