@@ -4,7 +4,8 @@
     "httpMethod": "GET",
     "headers": {
         "ContentType": "application/json",
-        "Authorization" : "Bearer $token_here"
+        "Authorization" : "Bearer $token_here",
+        "Origin" : "test.example.com"
     },
     "queryStringParameters": {
         "param": "1"

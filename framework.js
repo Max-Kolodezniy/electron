@@ -20,6 +20,8 @@ module.exports.request = (event) =>
 
 module.exports.response = (callback) =>
 {
+    this.origin = null;
+
     const ok = (content, status, headers) =>
     {
         status = status || 200;
@@ -44,15 +46,17 @@ module.exports.response = (callback) =>
         }
     };
 
-    const _buildResponse = function(status, headers, content)
-    {
+    const _buildResponse = (status, headers, content) => {
         headers = headers || {};
 
         if (!('ContentType' in headers)) {
-            headers.ContentType = 'application/json';
+            headers['Content-Type'] = 'application/json';
         }
         if (status === 200 && content.length === 0) {
             status = 204;
+        }
+        if (this.origin) {
+            headers['Access-Control-Allow-Origin'] = this.origin;
         }
 
         return {
@@ -62,9 +66,14 @@ module.exports.response = (callback) =>
         }
     };
 
+    const setOrigin = (origin) => {
+        this.origin = origin;
+    };
+
     return {
         ok: ok,
-        fail: fail
+        fail: fail,
+        origin : setOrigin
     };
 };
 
@@ -88,6 +97,8 @@ module.exports.router = (request, response, routes) =>
             return false;
         }
     });
+
+    response.origin(request.headers.Origin || null);
 
     const handle = () => {
         if (!route) {
