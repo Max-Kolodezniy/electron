@@ -14,7 +14,8 @@ module.exports.request = (event) =>
         query : event.queryStringParameters || {},
         headers : event.headers,
         matches : [],
-        escape : sanitizer.escape
+        escape : sanitizer.escape,
+        rawEvent : event
     };
 };
 

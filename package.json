@@ -1,6 +1,6 @@
 {
   "name": "lambda-mvc",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Lambda-MVC. Tiny request-router-middleware-controller-model-view-response framework for APIGateway + Lambda stateless applications",
   "keywords": [
     "AWS API Gateway",
