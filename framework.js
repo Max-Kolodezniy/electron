@@ -50,7 +50,8 @@ module.exports.response = (callback) =>
     const _buildResponse = (status, headers, content) => {
         headers = headers || {};
 
-        if (!('ContentType' in headers)) {
+        const hasContentType = Object.keys(headers).filter(key => key.toLowerCase() === 'content-type');
+        if (!hasContentType.length) {
             headers['Content-Type'] = 'application/json';
         }
         if (status === 200 && content.length === 0) {
